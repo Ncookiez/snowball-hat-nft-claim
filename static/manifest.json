@@ -1,0 +1,19 @@
+{
+	"background_color": "#000000",
+	"theme_color": "#000000",
+	"name": "Sapper Template - Quick and easy template.",
+	"short_name": "template",
+	"display": "minimal-ui",
+	"start_url": "/",
+	"icons": [
+		{
+			"src": "favicon.svg",
+			"sizes": "any",
+			"purpose": "any maskable"
+		},
+		{
+			"src": "splash-template.png",
+			"sizes": "512x512"
+		}
+	]
+}
