@@ -2,18 +2,21 @@
 
 	// Imports:
 	import { onMount } from 'svelte';
+	import { getAVAX } from '../functions';
 
 	// Initializations & Exports:
 	export let connected;
 	let wallets = [];
 	let chainID = '';
 	let account = '';
+	let balance = 0;
 	let chains = {
 		'0x1': 'Ethereum',
 		'0x38': 'BSC',
 		'0x89': 'Polygon',
 		'0xfa': 'Fantom',
 		'0xa86a': 'Avalanche',
+		'0xa869': 'Avalanche Testnet',
 		'0x63564c40': 'Harmony'
 	}
 
@@ -24,12 +27,15 @@
 				chainID = await ethereum.request({ method: 'eth_chainId' });
 				account = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
 				if(chainID !== '' && account !== '') {
-				if(!wallets.includes(account)) {
-					wallets.push(account);
-					localStorage.wallets = JSON.stringify(wallets);
+					if(!wallets.includes(account)) {
+						wallets.push(account);
+						localStorage.wallets = JSON.stringify(wallets);
+					}
+					if(chainID === '0xa86a' || chainID === '0xa869') {
+						balance = await getAVAX(account);
+						connected = true;
+					}
 				}
-				connected = true;
-			}
 			} catch {
 				console.error('Something went wrong while connecting to MetaMask.');
 			}
@@ -75,8 +81,12 @@
 	<span>{chains[chainID] ? chains[chainID] : 'Unidentified Network'}</span>
 
 	<!-- Displaying Network Error Message -->
-	{#if chainID !== '0xa86a'}
+	{#if chainID !== '0xa86a' || chainID !== '0xa869'}
 		<span>Please connect to Avalanche C-Chain</span>
+
+	<!-- Displaying AVAX Balance -->
+	{:else}
+		<span>{balance.toFixed(3)} AVAX</span>
 	{/if}
 
 	<!-- Displaying Connected Wallet -->
