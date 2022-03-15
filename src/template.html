@@ -4,17 +4,20 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="theme-color" content="#000000">
-	<!-- <meta name="twitter:card" content="summary" /> -->
-	<!-- <meta name="twitter:site" content="@example" /> -->
+	<meta name="twitter:card" content="Claim your Snowball Hat NFTs here!" />
+	<meta name="twitter:site" content="@snowballdefi" />
 
 	<!-- Sapper Base -->
 	%sapper.base%
 	
 	<link rel="stylesheet" href="global.css">
 	<link rel="manifest" href="manifest.json" crossorigin="use-credentials">
-	<link rel="icon" type="image/svg+xml" href="favicon.svg">
+	<link rel="shortcut icon" type="image/svg+xml" href="favicon.svg">
 	<link rel="apple-touch-icon" href="favicon.svg">
 	<!-- <link href="https://example.com/" rel="canonical" /> -->
+
+	<!-- Ethers CDN -->
+	<script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"></script>
 
 	<!-- Sapper Scripts -->
 	%sapper.scripts%
@@ -36,6 +39,7 @@
 
 <script>
 
-	// Some application-wide JS here.
+	// Initializing Avalanche Ethers Endpoint:
+	const avax = new ethers.providers.JsonRpcProvider('https://api.avax.network/ext/bc/C/rpc');
 
 </script>

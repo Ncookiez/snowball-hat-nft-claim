@@ -13,9 +13,7 @@ polka()
 		sapper.middleware({
 
 			// Session Variables:
-			session: () => ({
-				// <TODO>
-			})
+			session: () => ({})
 		})
 	)
 	.listen(PORT, err => {

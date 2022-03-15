@@ -2,10 +2,12 @@
 
 	// Imports:
 	import { onMount } from 'svelte';
-	import { stores, goto } from '@sapper/app';
+	// import { stores, goto } from '@sapper/app';
+	import Wallet from '../components/Wallet.svelte';
 
 	// Initializations:
-	const { session } = stores();
+	// const { session } = stores();
+	let connected = false;
 
 	onMount(async () => {
 
@@ -19,11 +21,12 @@
 
 <!-- Dynamic Svelte Header -->
 <svelte:head>
-	<title>Sapper Template</title>
-	<meta name="description" content="Quick and easy Sapper template.">
+	<title>Snowball | Hat NFT Claiming</title>
+	<meta name="description" content="Claim your Snowball Hat NFTs here!">
 </svelte:head>
 
-<!-- HTML Goes Here -->
+<!-- Wallet Connection -->
+<Wallet bind:connected={connected} />
 
 <!-- #################################################################################################### -->
 

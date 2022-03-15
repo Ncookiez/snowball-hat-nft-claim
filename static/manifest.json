@@ -1,8 +1,8 @@
 {
 	"background_color": "#000000",
 	"theme_color": "#000000",
-	"name": "Sapper Template - Quick and easy template.",
-	"short_name": "template",
+	"name": "Snowball Hat NFTs",
+	"short_name": "snowball-hat-nfts",
 	"display": "minimal-ui",
 	"start_url": "/",
 	"icons": [
@@ -12,7 +12,7 @@
 			"purpose": "any maskable"
 		},
 		{
-			"src": "splash-template.png",
+			"src": "splash-snob.png",
 			"sizes": "512x512"
 		}
 	]

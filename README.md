@@ -1,3 +1,3 @@
-# Sapper Template
+# Snowball Hat NFT Claiming
 
-Template for quick and easy Sapper app setups.
+Quick app to allow users to claim their Snowball Hat NFTs.
