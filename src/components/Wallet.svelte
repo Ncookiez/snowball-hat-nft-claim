@@ -19,32 +19,89 @@
 		'0xa869': 'Avalanche Testnet',
 		'0x63564c40': 'Harmony'
 	}
+	let avaxParams = {
+		chainId: '0xa86a',
+		chainName: 'Avalanche C-Chain',
+		nativeCurrency: {
+			name: 'AVAX',
+			symbol: 'AVAX',
+			decimals: 18
+		},
+		rpcUrls: ['https://api.avax.network/ext/bc/C/rpc'],
+		blockExplorerUrls: ['https://snowtrace.io']
+	}
 
-	// Function to connect to MetaMask:
+	// Function to connect to wallet:
 	const connect = async () => {
 		if(typeof window.ethereum !== 'undefined') {
 			try {
 				chainID = await ethereum.request({ method: 'eth_chainId' });
-				account = (await ethereum.request({ method: 'eth_requestAccounts' }))[0];
-				if(chainID !== '' && account !== '') {
-					if(!wallets.includes(account)) {
-						wallets.push(account);
-						localStorage.wallets = JSON.stringify(wallets);
-					}
-					if(chainID === '0xa86a' || chainID === '0xa869') {
-						balance = await getAVAX(account);
-						connected = true;
+				let accounts = await ethereum.request({ method: 'eth_requestAccounts' });
+				if(chainID !== '' && accounts.length > 0) {
+					handleAccountChange(accounts);
+					if(chainID !== '0xa86a' && chainID !== '0xa869') {
+						switchToOrAddAvalanche();
 					}
 				}
-			} catch {
-				console.error('Something went wrong while connecting to MetaMask.');
+			} catch(err) {
+				if(err.code === 4001) {
+					console.error('User has rejected the wallet connection.');
+				} else {
+					console.error('Something went wrong while connecting to wallet.');
+				}
 			}
 		}
 	}
 
 	// Function to handle network changes:
-	const handleNetworkChange = () => {
-		window.location.reload();
+	const handleNetworkChange = async () => {
+		try {
+			chainID = await ethereum.request({ method: 'eth_chainId' });
+			if(chainID === '0xa86a' || chainID === '0xa869') {
+				balance = await getAVAX(account, chainID);
+				connected = true;
+			} else {
+				connected = false;
+			}
+		} catch {
+			console.error('Something went wrong while changing wallet networks.');
+		}
+	}
+
+	// Function to handle network changes:
+	const handleAccountChange = async (accounts) => {
+		if(accounts.length > 0) {
+			account = accounts[0];
+			if(!wallets.includes(account)) {
+				wallets.push(account);
+				localStorage.wallets = JSON.stringify(wallets);
+			}
+			if(chainID === '0xa86a' || chainID === '0xa869') {
+				balance = await getAVAX(account, chainID);
+				connected = true;
+			} else {
+				connected = false;
+			}
+		}
+	}
+
+	// Function to switch to or add the Avalanche C-Chain network:
+	const switchToOrAddAvalanche = async () => {
+		try {
+			await ethereum.request({ method: 'wallet_switchEthereumChain', params: [{ chainId: '0xa86a' }] });
+		} catch(switchError) {
+			if(switchError.code === 4092) {
+				try {
+					await ethereum.request({ method: 'wallet_addEthereumChain', params: [avaxParams] });
+				} catch(addError) {
+					console.error('Something went wrong while adding the Avalanche C-Chain network.');
+				}
+			} else if(switchError.code === 4092) {
+				console.error('User has rejected the network switch.');
+			} else {
+				console.error('Something went wrong while switching wallet networks.');
+			}
+		}
 	}
   
 	onMount(async () => {
@@ -56,13 +113,16 @@
 			wallets = JSON.parse(localStorage.wallets);
 		}
 
-		// Connecting automatically:
+		// Connecting automatically if user has used the site before:
 		if(wallets.length > 0) {
 			connect();
 		}
 
 		// Handling network changes:
 		ethereum.on('chainChanged', handleNetworkChange);
+
+		// Handling account changes:
+		ethereum.on('accountsChanged', handleAccountChange);
 
 	});
 
@@ -72,7 +132,7 @@
 
 {#if account === ''}
 
-	<!-- MetaMask Connection Button -->
+	<!-- Wallet Connection Button -->
 	<button on:click={() => connect()}>Connect Your Wallet</button>
 
 {:else}
@@ -81,7 +141,7 @@
 	<span>{chains[chainID] ? chains[chainID] : 'Unidentified Network'}</span>
 
 	<!-- Displaying Network Error Message -->
-	{#if chainID !== '0xa86a' || chainID !== '0xa869'}
+	{#if chainID !== '0xa86a' && chainID !== '0xa869'}
 		<span>Please connect to Avalanche C-Chain</span>
 
 	<!-- Displaying AVAX Balance -->
