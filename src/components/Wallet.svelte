@@ -2,7 +2,6 @@
 
 	// Imports:
 	import { onMount } from 'svelte';
-	import { getAVAX } from '../functions';
 
 	// Initializations & Exports:
 	export let connected;
@@ -103,6 +102,22 @@
 			}
 		}
 	}
+
+	// Function to get wallet AVAX balance:
+	const getAVAX = async (wallet, chainID) => {
+		let balance;
+		try {
+			if(chainID === '0xa869') {
+				balance = parseInt(await fuji.getBalance(wallet)) / (10 ** 18);
+			} else {
+				balance = parseInt(await avax.getBalance(wallet)) / (10 ** 18);
+			}
+			return balance;
+		} catch {
+			console.error('Unable to fetch wallet AVAX balance.');
+			return 0;
+		}
+	}
   
 	onMount(async () => {
 
@@ -158,6 +173,8 @@
 
 <style>
 
-	/* CSS Goes Here */
+	span {
+		display: flex;
+	}
 
 </style>
