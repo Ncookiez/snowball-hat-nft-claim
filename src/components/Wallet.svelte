@@ -15,7 +15,7 @@
 		'0x89': 'Polygon',
 		'0xfa': 'Fantom',
 		'0xa86a': 'Avalanche',
-		'0xa869': 'Avalanche Testnet',
+		'0xa869': 'Fuji Testnet',
 		'0x63564c40': 'Harmony'
 	}
 	let avaxParams = {
