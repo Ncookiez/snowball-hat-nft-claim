@@ -145,36 +145,80 @@
 
 <!-- #################################################################################################### -->
 
-{#if account === ''}
+<div id="wallet">
+	{#if account === ''}
 
-	<!-- Wallet Connection Button -->
-	<button on:click={() => connect()}>Connect Your Wallet</button>
+		<!-- Wallet Connection Button -->
+		<button id="connectWallet" on:click={() => connect()}>Connect Wallet</button>
 
-{:else}
-
-	<!-- Displaying Connected Network -->
-	<span>{chains[chainID] ? chains[chainID] : 'Unidentified Network'}</span>
-
-	<!-- Displaying Network Error Message -->
-	{#if chainID !== '0xa86a' && chainID !== '0xa869'}
-		<span>Please connect to Avalanche C-Chain</span>
-
-	<!-- Displaying AVAX Balance -->
 	{:else}
-		<span>{balance.toFixed(3)} AVAX</span>
+		<div id="walletInfo">
+
+			<!-- Displaying Connected Network -->
+			<span id="network">{chains[chainID] ? chains[chainID] : 'Unidentified Network'}</span>
+
+			<!-- Displaying Network Error Message -->
+			{#if chainID !== '0xa86a' && chainID !== '0xa869'}
+				<span id="networkWarning">Please connect to Avalanche C-Chain</span>
+
+			<!-- Displaying AVAX Balance -->
+			{:else}
+				<span id="avaxBalance">{balance.toFixed(3)} AVAX</span>
+			{/if}
+
+			<!-- Displaying Connected Wallet -->
+			<span id="address"><a href="https://snowtrace.io/address/{account}" target="_blank">{account.slice(0, 6)}...{account.slice(-4)}</a></span>
+		</div>
 	{/if}
-
-	<!-- Displaying Connected Wallet -->
-	<span>{account.slice(0, 6)}...{account.slice(-4)}</span>
-
-{/if}
+</div>
 
 <!-- #################################################################################################### -->
 
 <style>
 
-	span {
+	a {
+		color: white;
+	}
+
+	#wallet {
 		display: flex;
+		justify-content: right;
+		width: 100%;
+	}
+
+	#connectWallet {
+		color: white;
+		display: flex;
+		margin: 1em;
+		padding: .6em 1em;
+		border: 2px solid white;
+		border-radius: .6em;
+		background: #495272;
+		cursor: pointer;
+	}
+
+	#walletInfo {
+		display: flex;
+		margin: 1em;
+		border: 2px solid white;
+		border-radius: .6em;
+		background: #495272;
+	}
+
+	#walletInfo > span {
+		padding: .6em 1em;
+	}
+
+	#network {
+		border-right: 2px solid white;
+	}
+
+	#networkWarning {
+		background-color: #D62839;
+	}
+
+	#address {
+		border-left: 2px solid white;
 	}
 
 </style>

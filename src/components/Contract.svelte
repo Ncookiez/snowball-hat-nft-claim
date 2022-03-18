@@ -1,15 +1,15 @@
 <script>
 
 	// Initializations & Exports:
+	export let unclaimedNFTs = undefined;
 	export let connected;
 	export let formData;
 	let wallet = { signer: {}, address: '', chainID: 0 }
-	let balances = { unclaimed: 0, claimed: 0 }
 	let approved = false;
 	let update = 0;
 
 	// NFT Addresses:
-	let unclaimedNFT = '0x3555cAB4b6628BeEA81d20Cb8a832A16B69671F7';
+	let unclaimedNFT = '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af';
 	let claimedNFT = ''; // <TODO> Enter claimed NFT address here once deployed.
 	let testUnclaimedNFT = '0xe2d02D310d3451A6B4eAA35091346767643f6753';
 	let testClaimedNFT = '0xb696F7E1d219E48169fc5a20F1B6B8d138f30dD8';
@@ -45,14 +45,10 @@
 		try {
 			if(wallet.chainID === 43113) {
 				let unclaimedNFTContract = new ethers.Contract(testUnclaimedNFT, unclaimedABI, wallet.signer);
-				let claimedNFTContract = new ethers.Contract(testClaimedNFT, claimedABI, wallet.signer);
-				balances.unclaimed = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
-				balances.claimed = parseInt(await claimedNFTContract.balanceOf(wallet.address));
+				unclaimedNFTs = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
 			} else if(wallet.chainID === 43114) {
 				let unclaimedNFTContract = new ethers.Contract(unclaimedNFT, unclaimedABI, signer);
-				let claimedNFTContract = new ethers.Contract(claimedNFT, claimedABI, signer);
-				balances.unclaimed = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
-				balances.claimed = parseInt(await claimedNFTContract.balanceOf(wallet.address));
+				unclaimedNFTs = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
 			}
 		} catch {
 			console.error('Something went wrong while checking NFT balances.');
@@ -126,11 +122,7 @@
 
 <!-- #################################################################################################### -->
 
-<!-- Displaying NFT Balances -->
-<span>Unclaimed NFTs: {balances.unclaimed}</span>
-<span>Claimed NFTs: {balances.claimed}</span>
-
-{#if balances.unclaimed > 0}
+{#if unclaimedNFTs > 0}
 
 	<!-- Approval Button -->
 	<button on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
@@ -144,8 +136,6 @@
 
 <style>
 
-	span {
-		display: flex;
-	}
+	/* CSS Goes Here */
 
 </style>
