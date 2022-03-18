@@ -123,19 +123,34 @@
 <!-- #################################################################################################### -->
 
 {#if unclaimedNFTs > 0}
+	<div id="buttons">
 
-	<!-- Approval Button -->
-	<button on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
-
-	<!-- Claiming Button -->
-	<button on:click={() => mintAndBurn()} disabled={!connected || !approved || !formData.valid}>Claim NFT</button>
-
+		<!-- Approval Button -->
+		<button id="approve" on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
+	
+		<!-- Claiming Button -->
+		<button id="claim" on:click={() => mintAndBurn()} disabled={!connected || !approved || !formData.valid}>Claim NFT</button>
+	</div>
 {/if}
 
 <!-- #################################################################################################### -->
 
 <style>
 
-	/* CSS Goes Here */
+	#buttons {
+		display: flex;
+		justify-content: center;
+	}
+
+	#approve, #claim {
+		display: flex;
+		margin: 1em;
+		padding: .6em 1em;
+		border: 2px solid white;
+		border-radius: .6em;
+		color: white;
+		background: #495272;
+		cursor: pointer;
+	}
 
 </style>

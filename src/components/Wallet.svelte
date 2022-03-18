@@ -37,6 +37,7 @@
 				chainID = await ethereum.request({ method: 'eth_chainId' });
 				let accounts = await ethereum.request({ method: 'eth_requestAccounts' });
 				if(chainID !== '' && accounts.length > 0) {
+					connected = true;
 					handleAccountChange(accounts);
 					if(chainID !== '0xa86a' && chainID !== '0xa869') {
 						switchToOrAddAvalanche();
@@ -187,12 +188,12 @@
 	}
 
 	#connectWallet {
-		color: white;
 		display: flex;
 		margin: 1em;
 		padding: .6em 1em;
 		border: 2px solid white;
 		border-radius: .6em;
+		color: white;
 		background: #495272;
 		cursor: pointer;
 	}

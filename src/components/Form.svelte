@@ -78,6 +78,8 @@
 			} else {
 				highlightInput = 'firstName';
 			}
+		} else {
+			highlightInput = '';
 		}
 		formData.valid = false;
 		return false;
@@ -119,14 +121,15 @@
 <!-- #################################################################################################### -->
 
 {#if unclaimedNFTs > 0}
-
 	<div id="form">
 
-		<!-- Name -->
+		<!-- First Name -->
 		<span>
 			<label for="firstName">First Name</label>
 			<input type="text" id="firstName" bind:value={formData.firstName} placeholder="First Name" class:warn="{highlightInput == 'firstName'}">
 		</span>
+
+		<!-- Last Name -->
 		<span>
 			<label for="lastName">Last Name</label>
 			<input type="text" id="lastName" bind:value={formData.lastName} placeholder="Last Name" class:warn="{highlightInput == 'lastName'}">
@@ -194,15 +197,35 @@
 			<input type="text" id="zipCode" bind:value={formData.zipCode} placeholder="Zip/Postal Code" class:warn="{highlightInput == 'zipCode'}">
 		</span>
 	</div>
-
 {/if}
 
 <!-- #################################################################################################### -->
 
 <style>
 
-	span {
+	#form {
 		display: flex;
+		flex-direction: column;
+		padding: 1em 30%;
+	}
+
+	#form > span {
+		display: flex;
+		align-items: center;
+		padding: .25em 0;
+	}
+
+	#form > span > label {
+		margin-right: 1em;
+		white-space: nowrap;
+	}
+
+	#form > span > input {
+		width: 100%;
+	}
+
+	#form > span > select {
+		width: 100%;
 	}
 
 	.warn {
