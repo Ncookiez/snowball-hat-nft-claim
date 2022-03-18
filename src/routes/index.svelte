@@ -35,17 +35,21 @@
 
 	<!-- Displaying User NFT Balance -->
 	<span id="nftBalance">
-		{#if unclaimedNFTs}
-			{#if unclaimedNFTs === 1}
-				<h2>You have an Snowball Hat NFT you can claim!</h2>
-				<p>Simply fill the form below, approve and claim your new NFT along with your merch.</p>
-			{:else if unclaimedNFTs > 1}
-				<h2>You have {unclaimedNFTs} Snowball Hat NFTs you can claim!</h2>
-				<p>Simply fill the form below, approve and claim your new NFT along with your merch.</p>
-			{:else if unclaimedNFTs === 0}
-				<h2>You don't have any Snowball Hat NFTs to claim.</h2>
-				<p>Search for any to buy in any NFT marketplaces on Avalanche, or look forward to any of our new upcoming NFTs!</p>
+		{#if connected}
+			{#if unclaimedNFTs}
+				{#if unclaimedNFTs === 1}
+					<h2>You have an Snowball Hat NFT you can claim!</h2>
+					<p>Simply fill the form below, approve and claim your new NFT along with your merch.</p>
+				{:else if unclaimedNFTs > 1}
+					<h2>You have {unclaimedNFTs} Snowball Hat NFTs you can claim!</h2>
+					<p>Simply fill the form below, approve and claim your new NFT along with your merch.</p>
+				{:else if unclaimedNFTs === 0}
+					<h2>You don't have any Snowball Hat NFTs to claim.</h2>
+					<p>Search for any to buy in any NFT marketplaces on Avalanche, or look forward to any of our new upcoming NFTs!</p>
+				{/if}
 			{/if}
+		{:else}
+			<h2>Connect your wallet on the top right to check if you have any Snowball Hat NFTs to claim!</h2>
 		{/if}
 	</span>
 
