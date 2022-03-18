@@ -3,9 +3,11 @@
 	// Imports:
 	import Wallet from '../components/Wallet.svelte';
 	import Contract from '../components/Contract.svelte';
+	import Form from '../components/Form.svelte';
 
 	// Initializations:
-	let connected = false;
+	let connected;
+	let formData;
 
 </script>
 
@@ -21,7 +23,10 @@
 <Wallet bind:connected={connected} />
 
 <!-- Contract Interaction -->
-<Contract {connected} />
+<Contract {connected} {formData} />
+
+<!-- User Info Form -->
+<Form bind:formData={formData} />
 
 <!-- #################################################################################################### -->
 

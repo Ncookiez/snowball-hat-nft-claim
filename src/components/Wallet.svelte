@@ -4,7 +4,7 @@
 	import { onMount } from 'svelte';
 
 	// Initializations & Exports:
-	export let connected;
+	export let connected = false;
 	let wallets = [];
 	let chainID = '';
 	let account = '';

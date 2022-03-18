@@ -2,6 +2,7 @@
 
 	// Initializations & Exports:
 	export let connected;
+	export let formData;
 	let wallet = { signer: {}, address: '', chainID: 0 }
 	let balances = { unclaimed: 0, claimed: 0 }
 	let approved = false;
@@ -132,10 +133,10 @@
 {#if balances.unclaimed > 0}
 
 	<!-- Approval Button -->
-	<button on:click={() => approveAll()} disabled={!connected || approved}>Approve</button>
+	<button on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
 
 	<!-- Claiming Button -->
-	<button on:click={() => mintAndBurn()} disabled={!connected || !approved}>Claim NFT</button>
+	<button on:click={() => mintAndBurn()} disabled={!connected || !approved || !formData.valid}>Claim NFT</button>
 
 {/if}
 
