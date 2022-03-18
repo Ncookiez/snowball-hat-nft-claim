@@ -22,11 +22,11 @@
 <!-- Wallet Connection -->
 <Wallet bind:connected={connected} />
 
-<!-- Contract Interaction -->
-<Contract {connected} {formData} />
-
 <!-- User Info Form -->
 <Form bind:formData={formData} />
+
+<!-- Contract Interaction -->
+<Contract {connected} {formData} />
 
 <!-- #################################################################################################### -->
 
