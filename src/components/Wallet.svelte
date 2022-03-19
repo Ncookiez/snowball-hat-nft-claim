@@ -146,15 +146,23 @@
 
 <!-- #################################################################################################### -->
 
-<div id="wallet">
-	{#if account === ''}
+<!-- Navbar -->
+<div id="navbar">
 
-		<!-- Wallet Connection Button -->
-		<button id="connectWallet" on:click={() => connect()}>Connect Wallet</button>
-
-	{:else}
-		<div id="walletInfo">
-
+	<!-- Snowball Logo -->
+	<div id="logo">
+		<img src="snowball-logo.svg" alt="Snowball">
+	</div>
+	
+	<!-- Wallet -->
+	<div id="wallet">
+		{#if account === ''}
+	
+			<!-- Wallet Connection Button -->
+			<button id="connectWallet" on:click={() => connect()}>Connect Wallet</button>
+	
+		{:else}
+	
 			<!-- Displaying Connected Network -->
 			<span id="network">{chains[chainID] ? chains[chainID] : 'Unidentified Network'}</span>
 
@@ -169,57 +177,74 @@
 
 			<!-- Displaying Connected Wallet -->
 			<span id="address"><a href="https://snowtrace.io/address/{account}" target="_blank">{account.slice(0, 6)}...{account.slice(-4)}</a></span>
-		</div>
-	{/if}
+
+		{/if}
+	</div>
 </div>
+
 
 <!-- #################################################################################################### -->
 
 <style>
 
-	a {
-		color: white;
+	#navbar {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+	}
+
+	#logo {
+		display: flex;
+		align-items: center;
+		margin: 1em 2em;
+	}
+
+	#logo > img {
+		height: 2.5em;
 	}
 
 	#wallet {
 		display: flex;
-		justify-content: right;
-		width: 100%;
+		align-items: center;
+		margin: 1em 2em;
+		border-radius: .6em;
+		background: #47C2FF;
+	}
+
+	#wallet > button {
+		padding: .6em 2em;
+	}
+
+	#wallet > span {
+		padding: .6em 1em;
 	}
 
 	#connectWallet {
-		display: flex;
-		margin: 1em;
-		padding: .6em 1em;
-		border: 2px solid white;
-		border-radius: .6em;
-		color: white;
-		background: #495272;
+		border: none;
+		background-color: transparent;
 		cursor: pointer;
 	}
 
-	#walletInfo {
-		display: flex;
-		margin: 1em;
-		border: 2px solid white;
-		border-radius: .6em;
-		background: #495272;
-	}
-
-	#walletInfo > span {
-		padding: .6em 1em;
-	}
-
 	#network {
-		border-right: 2px solid white;
+		color: black;
+		border-right: 2px solid black;
 	}
 
 	#networkWarning {
 		background-color: #D62839;
 	}
 
+	#avaxBalance {
+		color: black;
+	}
+
 	#address {
-		border-left: 2px solid white;
+		color: black;
+		border-left: 2px solid black;
+	}
+
+	#address > a {
+		color: black;
 	}
 
 </style>
