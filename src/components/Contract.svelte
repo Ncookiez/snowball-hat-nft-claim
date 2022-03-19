@@ -145,12 +145,19 @@
 	#approve, #claim {
 		display: flex;
 		margin: 1em;
-		padding: .6em 1em;
-		border: 2px solid white;
-		border-radius: .6em;
-		color: white;
-		background: #495272;
+		padding: .6em 2em;
+		border: none;
+		border-radius: .8em;
+		color: #1E2644;
+		background: #47C2FF;
 		cursor: pointer;
+	}
+
+	#approve:disabled, #claim:disabled {
+		color: #47C2FF;
+		border: 2px solid #47C2FF;
+		background: transparent;
+		cursor: default;
 	}
 
 </style>

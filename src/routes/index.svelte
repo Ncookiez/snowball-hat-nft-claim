@@ -55,6 +55,7 @@
 		<div id="claiming">
 
 			<!-- Snowball Image -->
+			<!-- <TODO> Replace with actual image -->
 			<img src="favicon.svg" alt="Snowball NFT">
 
 			<!-- Displaying User NFT Balance -->
@@ -134,7 +135,7 @@
 	}
 
 	#claiming > img {
-		width: 16em;
+		width: 10em;
 		margin-bottom: 1em;
 	}
 

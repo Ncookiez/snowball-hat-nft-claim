@@ -191,7 +191,7 @@
 	}
 
 	.warn {
-		outline: 1px solid #D62839;
+		outline: 2px solid #D62839;
 	}
 
 	::placeholder {
