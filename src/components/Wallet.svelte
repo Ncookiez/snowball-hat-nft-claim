@@ -213,10 +213,12 @@
 
 	#wallet > button {
 		padding: .6em 2em;
+		white-space: nowrap;
 	}
 
 	#wallet > span {
 		padding: .6em 1em;
+		white-space: nowrap;
 	}
 
 	#connectWallet {
@@ -227,7 +229,7 @@
 
 	#network {
 		color: black;
-		border-right: 2px solid black;
+		border-right: 1px solid black;
 	}
 
 	#networkWarning {
@@ -240,7 +242,7 @@
 
 	#address {
 		color: black;
-		border-left: 2px solid black;
+		border-left: 1px solid black;
 	}
 
 	#address > a {
