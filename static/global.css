@@ -7,7 +7,7 @@ body, html {
   width: 100%;
 }
 
-body {
+body, input, select {
   color: white;
   background-color: #1E2644;
   font-family: 'Ubuntu', sans-serif;

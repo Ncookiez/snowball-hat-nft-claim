@@ -43,7 +43,7 @@
 								if(formData.state != '') {
 									if(formData.city != '') {
 										if(formData.address_1 != '' && charFilter.test(formData.address_1)) {
-											if(formData.address_2 != '' && charFilter.test(formData.address_2)) {
+											if(formData.address_2 == '' || charFilter.test(formData.address_2)) {
 												if(formData.zipCode != '' && charFilter.test(formData.zipCode)) {
 													formData.valid = true;
 													highlightInput = '';
@@ -112,7 +112,7 @@
 	onMount(async () => {
 
 		// Fetching list of countries, states & cities:
-		countries = await (await fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json')).json();
+		countries = (await (await fetch('https://raw.githubusercontent.com/dr5hn/countries-states-cities-database/master/countries%2Bstates%2Bcities.json')).json()).filter(country => country.states.length > 0);
 
 	});
 
@@ -123,79 +123,46 @@
 {#if unclaimedNFTs > 0}
 	<div id="form">
 
-		<!-- First Name -->
-		<span>
-			<label for="firstName">First Name</label>
-			<input type="text" id="firstName" bind:value={formData.firstName} placeholder="First Name" class:warn="{highlightInput == 'firstName'}">
-		</span>
-
-		<!-- Last Name -->
-		<span>
-			<label for="lastName">Last Name</label>
-			<input type="text" id="lastName" bind:value={formData.lastName} placeholder="Last Name" class:warn="{highlightInput == 'lastName'}">
-		</span>
+		<!-- Name -->
+		<input type="text" bind:value={formData.firstName} placeholder="first name" class:warn="{highlightInput == 'firstName'}">
+		<input type="text" bind:value={formData.lastName} placeholder="last name" class:warn="{highlightInput == 'lastName'}">
 
 		<!-- Email -->
-		<span>
-			<label for="email">Email</label>
-			<input type="email" id="email" bind:value={formData.email} placeholder="Email" class:warn="{highlightInput == 'email'}">
-		</span>
+		<input type="email" bind:value={formData.email} placeholder="email" class:warn="{highlightInput == 'email'}">
 
 		<!-- Phone Number -->
-		<span>
-			<label for="phone">Phone Number</label>
-			<input type="tel" id="phone" bind:value={formData.phone} placeholder="12-3456-7890" class:warn="{highlightInput == 'phone'}">
-		</span>
+		<input type="tel" bind:value={formData.phone} placeholder="phone number" class:warn="{highlightInput == 'phone'}">
 
-		<!-- Country -->
-		<span>
-			<label for="country">Country</label>
-			<select id="country" bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
-				{#if countries}
-					{#each countries as country}
-						<option value={country}>{country.name}</option>
-					{/each}
-				{/if}
-			</select>
-		</span>
-
-		<!-- State -->
-		<span>
-			<label for="state">State/Province</label>
-			<select id="state" bind:value={formData.state} on:change={() => { formData.city = ''; }} class:warn="{highlightInput == 'state'}">
-				{#if formData.country}
-					{#each states as state}
-						<option value={state}>{state.name}</option>
-					{/each}
-				{/if}
-			</select>
-		</span>
-
-		<!-- City -->
-		<span>
-			<label for="city">City</label>
-			<select id="city" bind:value={formData.city} class:warn="{highlightInput == 'city'}">
-				{#if formData.state}
-					{#each cities as city}
-						<option value={city}>{city.name}</option>
-					{/each}
-				{/if}
-			</select>
-		</span>
+		<!-- Location -->
+		<select bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
+			<option value="" disabled selected>country</option>
+			{#if countries}
+				{#each countries as country}
+					<option value={country}>{country.name}</option>
+				{/each}
+			{/if}
+		</select>
+		<select bind:value={formData.state} on:change={() => { formData.city = ''; }} class:warn="{highlightInput == 'state'}">
+			<option value="" disabled selected>state/province</option>
+			{#if formData.country}
+				{#each states as state}
+					<option value={state}>{state.name}</option>
+				{/each}
+			{/if}
+		</select>
+		<select bind:value={formData.city} class:warn="{highlightInput == 'city'}">
+			<option value="" disabled selected>city</option>
+			{#if formData.state}
+				{#each cities as city}
+					<option value={city}>{city.name}</option>
+				{/each}
+			{/if}
+		</select>
 
 		<!-- Address -->
-		<span>
-			<label for="address_1">Address Line 1</label>
-			<input type="text" id="address_1" bind:value={formData.address_1} placeholder="Address Line 1" class:warn="{highlightInput == 'address_1'}">
-		</span>
-		<span>
-			<label for="address_2">Address Line 2</label>
-			<input type="text" id="address_2" bind:value={formData.address_2} placeholder="Address Line 2" class:warn="{highlightInput == 'address_2'}">
-		</span>
-		<span>
-			<label for="zipCode">Zip/Postal Code</label>
-			<input type="text" id="zipCode" bind:value={formData.zipCode} placeholder="Zip/Postal Code" class:warn="{highlightInput == 'zipCode'}">
-		</span>
+		<input type="text" bind:value={formData.address_1} placeholder="address line 1" class:warn="{highlightInput == 'address_1'}">
+		<input type="text" bind:value={formData.address_2} placeholder="address line 2" class:warn="{highlightInput == 'address_2'}">
+		<input type="text" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
 	</div>
 {/if}
 
@@ -206,30 +173,29 @@
 	#form {
 		display: flex;
 		flex-direction: column;
-		padding: 1em 30%;
-	}
-
-	#form > span {
-		display: flex;
 		align-items: center;
-		padding: .25em 0;
+		width: 50%;
+		padding: 1em 0;
 	}
 
-	#form > span > label {
-		margin-right: 1em;
+	#form > input, #form > select {
+		width: 100%;
+		margin: .4em 0;
+		padding: .4em 0;
+		border: none;
+		border-radius: 1em;
+		color: black;
+		background-color: white;
+		text-align: center;
 		white-space: nowrap;
 	}
 
-	#form > span > input {
-		width: 100%;
-	}
-
-	#form > span > select {
-		width: 100%;
-	}
-
 	.warn {
-		outline: 2px solid red;
+		outline: 1px solid #D62839;
+	}
+
+	::placeholder {
+		color: black;
 	}
 
 </style>
