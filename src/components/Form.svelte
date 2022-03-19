@@ -198,4 +198,12 @@
 		color: black;
 	}
 
+	/* Mobile CSS */
+	@media only screen and (max-width: 625px) {
+		
+		#form {
+			width: 100%;
+		}
+	}
+
 </style>

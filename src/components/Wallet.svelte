@@ -249,4 +249,12 @@
 		color: black;
 	}
 
+	/* Mobile CSS */
+	@media only screen and (max-width: 625px) {
+
+		#network, #networkWarning, #avaxBalance {
+			display: none;
+		}
+	}
+
 </style>

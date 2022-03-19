@@ -150,6 +150,7 @@
 		border-radius: .8em;
 		color: #1E2644;
 		background: #47C2FF;
+		white-space: nowrap;
 		cursor: pointer;
 	}
 
@@ -158,6 +159,20 @@
 		border: 2px solid #47C2FF;
 		background: transparent;
 		cursor: default;
+	}
+
+	/* Mobile CSS */
+	@media only screen and (max-width: 625px) {
+
+		#buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		#approve {
+			margin-bottom: 0;
+			padding: .6em 2.3em;
+		}
 	}
 
 </style>

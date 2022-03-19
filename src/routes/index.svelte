@@ -147,4 +147,20 @@
 		height: 5em;
 	}
 
+	/* Mobile CSS */
+	@media only screen and (max-width: 625px) {
+
+		#content > h1 {
+			font-size: 48px;
+		}
+
+		#disclaimer, #info {
+			width: 100%;
+		}
+
+		#claiming > h2 {
+			font-size: 28px;
+		}
+	}
+
 </style>
