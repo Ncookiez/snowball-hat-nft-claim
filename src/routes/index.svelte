@@ -55,8 +55,7 @@
 		<div id="claiming">
 
 			<!-- Snowball Image -->
-			<!-- <TODO> Replace with actual image -->
-			<img src="favicon.svg" alt="Snowball NFT">
+			<img src="snowballs.svg" alt="Snowball NFT">
 
 			<!-- Displaying User NFT Balance -->
 			{#if unclaimedNFTs}
