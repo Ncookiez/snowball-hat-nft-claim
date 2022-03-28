@@ -2,6 +2,7 @@
 
 	// Import:
 	import axios from 'axios';
+	import qs from 'qs';
 
 	// Initializations & Exports:
 	export let unclaimedNFTs = undefined;
@@ -13,7 +14,7 @@
 
 	// NFT Addresses:
 	let unclaimedNFT = '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af';
-	let claimedNFT = ''; // <TODO> Enter claimed NFT address here once deployed.
+	let claimedNFT = '0x16437ED3d48315865173B85A81972f42B08732E4';
 	let testUnclaimedNFT = '0xe2d02D310d3451A6B4eAA35091346767643f6753';
 	let testClaimedNFT = '0xb696F7E1d219E48169fc5a20F1B6B8d138f30dD8';
 
@@ -126,11 +127,11 @@
 	const sendFormData = async (receipt) => {
 		let request = {
 			method: 'post',
-			url: '',
+			url: process.env.API_URL+"/nftorder",
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
-			data: formatData(receipt)
+			data: formatData(receipt.transactionHash)
 		}
 		await axios(request).then((res) => {
 			console.log(JSON.stringify(res.data));
@@ -155,7 +156,7 @@
 		formattedData.landline = formData.landline;
 		formattedData.cellnumber = formData.phone;
 		formattedData.email = formData.email;
-		return formattedData;
+		return qs.stringify(formattedData);
 	}
 
 </script>
