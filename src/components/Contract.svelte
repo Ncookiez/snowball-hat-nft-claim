@@ -133,10 +133,8 @@
 			data: formatData(receipt)
 		}
 		await axios(request).then((res) => {
-			// <TODO> Handle response.
-			console.log(res);
+			console.log(JSON.stringify(res.data));
 		}).catch((err) => {
-			// <TODO> Handle error.
 			console.log(err);
 		});
 	}
