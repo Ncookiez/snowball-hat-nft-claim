@@ -1,5 +1,8 @@
 <script>
 
+	// Import:
+	import axios from 'axios';
+
 	// Initializations & Exports:
 	export let unclaimedNFTs = undefined;
 	export let connected;
@@ -109,6 +112,7 @@
 				let receipt = await tx.wait();
 				if(receipt.status) {
 					update++;
+					await sendFormData(receipt);
 				} else {
 					console.error('Claiming TX reverted.');
 				}
@@ -116,6 +120,44 @@
 				console.error('Something went wrong while trying to claim NFTs.');
 			}
 		}
+	}
+
+	// Function to send form data to API:
+	const sendFormData = async (receipt) => {
+		let request = {
+			method: 'post',
+			url: '',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded'
+			},
+			data: formatData(receipt)
+		}
+		await axios(request).then((res) => {
+			// <TODO> Handle response.
+			console.log(res);
+		}).catch((err) => {
+			// <TODO> Handle error.
+			console.log(err);
+		});
+	}
+
+	// Function to format form data for API request:
+	const formatData = (txHash) => {
+		let formattedData = {};
+		formattedData.tx_hash = txHash;
+		formattedData.first_name = formData.firstName;
+		formattedData.last_name = formData.lastName;
+		formattedData.floor_staircase = formData.floor;
+		formattedData.building = formData.building;
+		formattedData.street_w_number = formData.street;
+		formattedData.state = formData.state.name;
+		formattedData.zip_code = formData.zipCode;
+		formattedData.city = formData.city.name;
+		formattedData.iso_country_code = formData.country.iso2;
+		formattedData.landline = formData.landline;
+		formattedData.cellnumber = formData.phone;
+		formattedData.email = formData.email;
+		return formattedData;
 	}
 
 </script>

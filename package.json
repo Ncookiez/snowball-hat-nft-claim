@@ -1,7 +1,7 @@
 {
   "name": "snowball-hate-nft-claim",
   "description": "Quick app to allow users to claim their Snowball Hat NFTs.",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "scripts": {
     "dev": "sapper dev",
     "build": "sapper build --legacy",
@@ -9,6 +9,7 @@
     "start": "node __sapper__/build"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "compression": "^1.7.1",
     "polka": "next",
     "sirv": "^1.0.0"

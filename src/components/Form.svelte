@@ -9,11 +9,13 @@
 		lastName: '',
 		email: '',
 		phone: '',
+		landline: '',
 		country: '',
 		state: '',
 		city: '',
-		address_1: '',
-		address_2: '',
+		street: '',
+		building: '',
+		floor: '',
 		zipCode: '',
 		valid: false
 	}
@@ -22,7 +24,7 @@
 	let highlightInput = '';
 
 	// Form Validation Regex:
-	let charFilter = /^[a-zA-Z0-9\-\. ]+$/;
+	let charFilter = /^[a-zA-Z0-9\-,\. ]+$/;
 	let letterFilter = /^[a-zA-Z\-\. ]+$/;
 	let numFilter = /^[0-9\+\-\. ]+$/;
 	let emailFilter = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -39,32 +41,40 @@
 				if(formData.lastNameName != '' && letterFilter.test(formData.lastName)) {
 					if(formData.email != '' && emailFilter.test(formData.email)) {
 						if(formData.phone != '' && numFilter.test(formData.phone) && formData.phone.length > 6) {
-							if(formData.country != '') {
-								if(formData.state != '') {
-									if(formData.city != '') {
-										if(formData.address_1 != '' && charFilter.test(formData.address_1)) {
-											if(formData.address_2 == '' || charFilter.test(formData.address_2)) {
-												if(formData.zipCode != '' && charFilter.test(formData.zipCode)) {
-													formData.valid = true;
-													highlightInput = '';
-													return true;
+							if(formData.landline == '' || numFilter.test(formData.landline)) {
+								if(formData.country != '') {
+									if(formData.state != '') {
+										if(formData.city != '') {
+											if(formData.street != '' && charFilter.test(formData.street)) {
+												if(formData.building == '' || charFilter.test(formData.building)) {
+													if(formData.floor == '' || charFilter.test(formData.floor)) {
+														if(formData.zipCode != '' && charFilter.test(formData.zipCode)) {
+															highlightInput = '';
+															formData.valid = true;
+															return true;
+														} else {
+															highlightInput = 'zipCode';
+														}
+													} else {
+														highlightInput = 'floor';
+													}
 												} else {
-													highlightInput = 'zipCode';
+													highlightInput = 'building';
 												}
 											} else {
-												highlightInput = 'address_2';
+												highlightInput = 'street';
 											}
 										} else {
-											highlightInput = 'address_1';
+											highlightInput = 'city';
 										}
 									} else {
-										highlightInput = 'city';
+										highlightInput = 'state';
 									}
 								} else {
-									highlightInput = 'state';
+									highlightInput = 'country';
 								}
 							} else {
-								highlightInput = 'country';
+								highlightInput = 'landline';
 							}
 						} else {
 							highlightInput = 'phone';
@@ -130,8 +140,9 @@
 		<!-- Email -->
 		<input type="email" bind:value={formData.email} placeholder="email" class:warn="{highlightInput == 'email'}">
 
-		<!-- Phone Number -->
+		<!-- Phone Numbers -->
 		<input type="tel" bind:value={formData.phone} placeholder="phone number" class:warn="{highlightInput == 'phone'}">
+		<input type="landline" bind:value={formData.landline} placeholder="landline" class:warn="{highlightInput == 'landline'}">
 
 		<!-- Location -->
 		<select bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
@@ -160,8 +171,9 @@
 		</select>
 
 		<!-- Address -->
-		<input type="text" bind:value={formData.address_1} placeholder="address line 1" class:warn="{highlightInput == 'address_1'}">
-		<input type="text" bind:value={formData.address_2} placeholder="address line 2" class:warn="{highlightInput == 'address_2'}">
+		<input type="text" bind:value={formData.street} placeholder="street w/ number" class:warn="{highlightInput == 'street'}">
+		<input type="text" bind:value={formData.building} placeholder="building" class:warn="{highlightInput == 'building'}">
+		<input type="text" bind:value={formData.floor} placeholder="floor/staircase" class:warn="{highlightInput == 'floor'}">
 		<input type="text" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
 	</div>
 {/if}

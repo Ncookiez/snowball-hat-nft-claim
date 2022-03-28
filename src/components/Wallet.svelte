@@ -44,6 +44,7 @@
 					}
 				}
 			} catch(err) {
+				connected = false;
 				if(err.code === 4001) {
 					console.error('User has rejected the wallet connection.');
 				} else {
