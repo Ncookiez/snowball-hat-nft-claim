@@ -56,13 +56,12 @@
 
 	// Function to handle network changes:
 	const handleNetworkChange = async () => {
+		connected = false;
 		try {
 			chainID = await ethereum.request({ method: 'eth_chainId' });
 			if(chainID === '0xa86a' || chainID === '0xa869') {
 				balance = await getAVAX(account, chainID);
 				connected = true;
-			} else {
-				connected = false;
 			}
 		} catch {
 			console.error('Something went wrong while changing wallet networks.');
@@ -71,6 +70,7 @@
 
 	// Function to handle network changes:
 	const handleAccountChange = async (accounts) => {
+		connected = false;
 		if(accounts.length > 0) {
 			account = accounts[0];
 			if(!wallets.includes(account)) {
@@ -80,8 +80,6 @@
 			if(chainID === '0xa86a' || chainID === '0xa869') {
 				balance = await getAVAX(account, chainID);
 				connected = true;
-			} else {
-				connected = false;
 			}
 		}
 	}

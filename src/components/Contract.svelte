@@ -34,6 +34,8 @@
 
 	// Function to fetch wallet info:
 	const fetchWalletInfo = async () => {
+		unclaimedNFTs = undefined;
+		approved = false;
 		if(connected) {
 			let provider = new ethers.providers.Web3Provider(window.ethereum, 'any');
 			wallet.signer = provider.getSigner();
