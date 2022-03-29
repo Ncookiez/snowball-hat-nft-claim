@@ -127,7 +127,7 @@
 	const sendFormData = async (receipt) => {
 		let request = {
 			method: 'post',
-			url: process.env.API_URL+"/nftorder",
+			url: process.env.API_URL + '/nftorder',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},

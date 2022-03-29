@@ -46,8 +46,7 @@
 
 	<!-- Extra Info -->
 	<div id="info">
-		<!-- <TODO> Update Claimed NFT Address -->
-		<p>When claiming your merchandise, your <a href="https://snowtrace.io/token/0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af" target="_blank">Snowball Hat NFT</a> will be converted into a <a href="https://snowtrace.io/token/0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af" target="_blank">Claimed Snowball Hat NFT</a>, which comes with a new look and indicates you have claimed your swag!</p>
+		<p>When claiming your merchandise, your <a href="https://snowtrace.io/token/0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af" target="_blank">Snowball Hat NFT</a> will be converted into a <a href="https://snowtrace.io/token/0x16437ED3d48315865173B85A81972f42B08732E4" target="_blank">Claimed Snowball Hat NFT</a>, which comes with a new look and indicates you have claimed your swag!</p>
 	</div>
 
 	<!-- Claiming Form -->
