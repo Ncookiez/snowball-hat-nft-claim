@@ -49,7 +49,7 @@
 	<!-- Disclaimer -->
 	<div id="disclaimer">
 		<h3>Disclaimer:</h3>
-		<p>We have no intention of invading the privacy of any of our community members. All data collected will be deleted from our servers after the relevant information is passed along to <a href="https://www.husky.space/" target="_blank">Husky</a>.</p>
+		<p>We have no intention of invading the privacy of any of our community members. There is no link between wallet addresses and location data on our databases, and all data collected will be deleted from our servers after the relevant information is passed along to <a href="https://www.husky.space/" target="_blank">Husky</a>.</p>
 	</div>
 
 	<!-- Extra Info -->
