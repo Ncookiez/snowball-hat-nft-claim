@@ -138,7 +138,7 @@
 			},
 			data: formatData(receipt.transactionHash)
 		}
-		await axios(request).then((res) => {
+		await axios(formSubmission.request).then((res) => {
 			if(res.data.status.validated) {
 				formSubmission.valid = true;
 			} else {
