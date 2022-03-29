@@ -57,7 +57,7 @@
 			<img src="snowballs.svg" alt="Snowball NFT">
 
 			<!-- Displaying User NFT Balance -->
-			{#if unclaimedNFTs}
+			{#if unclaimedNFTs != undefined}
 				{#if unclaimedNFTs === 1}
 					<h2>You have an NFT to claim!</h2>
 					<p>Please fill out all required information below:</p>

@@ -51,7 +51,7 @@
 				let unclaimedNFTContract = new ethers.Contract(testUnclaimedNFT, unclaimedABI, wallet.signer);
 				unclaimedNFTs = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
 			} else if(wallet.chainID === 43114) {
-				let unclaimedNFTContract = new ethers.Contract(unclaimedNFT, unclaimedABI, signer);
+				let unclaimedNFTContract = new ethers.Contract(unclaimedNFT, unclaimedABI, wallet.signer);
 				unclaimedNFTs = parseInt(await unclaimedNFTContract.balanceOf(wallet.address));
 			}
 		} catch {
