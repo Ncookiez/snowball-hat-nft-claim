@@ -11,7 +11,9 @@
   "dependencies": {
     "axios": "^0.26.1",
     "compression": "^1.7.1",
+    "dotenv": "^16.0.0",
     "polka": "next",
+    "qs": "^6.10.3",
     "sirv": "^1.0.0"
   },
   "devDependencies": {
