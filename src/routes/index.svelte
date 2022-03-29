@@ -4,11 +4,13 @@
 	import Wallet from '../components/Wallet.svelte';
 	import Contract from '../components/Contract.svelte';
 	import Form from '../components/Form.svelte';
+	import FormSubmission from '../components/FormSubmission.svelte';
 
 	// Initializations:
 	let connected;
 	let formData;
 	let unclaimedNFTs;
+	let formSubmission;
 
 </script>
 
@@ -19,6 +21,11 @@
 	<title>Snowball | Hat NFT Claiming</title>
 	<meta name="description" content="Claim your Snowball Hat NFTs here!">
 </svelte:head>
+
+<!-- Form Submission Popup -->
+{#if formSubmission && formSubmission.valid != undefined}
+	<FormSubmission {formSubmission} />
+{/if}
 
 <!-- Wallet Connection -->
 <Wallet bind:connected={connected} />
@@ -73,10 +80,10 @@
 			{/if}
 		
 			<!-- User Info Form -->
-			<Form bind:formData={formData} {unclaimedNFTs} />
+			<Form bind:formData {unclaimedNFTs} />
 		
 			<!-- Contract Interaction -->
-			<Contract bind:unclaimedNFTs={unclaimedNFTs} {connected} {formData} />
+			<Contract bind:unclaimedNFTs bind:formSubmission {connected} {formData} />
 
 		</div>
 	{/if}

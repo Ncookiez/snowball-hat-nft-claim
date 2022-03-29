@@ -8,6 +8,8 @@
 	export let unclaimedNFTs = undefined;
 	export let connected;
 	export let formData;
+	export let formSubmission = { valid: undefined, request: {} }
+	const apiURL = 'http://localhost:4000/nftorder';
 	let wallet = { signer: {}, address: '', chainID: 0 }
 	let approved = false;
 	let update = 0;
@@ -127,18 +129,24 @@
 
 	// Function to send form data to API:
 	const sendFormData = async (receipt) => {
-		let request = {
+		formSubmission.valid = undefined;
+		formSubmission.request = {
 			method: 'post',
-			url: process.env.API_URL + '/nftorder',
+			url: apiURL,
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
 			data: formatData(receipt.transactionHash)
 		}
 		await axios(request).then((res) => {
-			console.log(JSON.stringify(res.data));
+			if(res.data.status.validated) {
+				formSubmission.valid = true;
+			} else {
+				formSubmission.valid = false;
+			}
 		}).catch((err) => {
-			console.log(err);
+			console.error(err);
+			formSubmission.valid = false;
 		});
 	}
 
@@ -167,6 +175,7 @@
 
 {#if unclaimedNFTs > 0}
 	<div id="buttons">
+		<button on:click={() => sendFormData({transactionHash: '0x12345678910'})}>CLICK ME</button>
 
 		<!-- Approval Button -->
 		<button id="approve" on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
