@@ -175,7 +175,6 @@
 
 {#if unclaimedNFTs > 0}
 	<div id="buttons">
-		<button on:click={() => sendFormData({transactionHash: '0x12345678910'})}>CLICK ME</button>
 
 		<!-- Approval Button -->
 		<button id="approve" on:click={() => approveAll()} disabled={!connected || approved || !formData.valid}>Approve</button>
