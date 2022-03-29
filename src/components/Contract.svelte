@@ -6,10 +6,11 @@
 
 	// Initializations & Exports:
 	export let unclaimedNFTs = undefined;
+	export let apiStatus = undefined;
 	export let connected;
 	export let formData;
 	export let formSubmission = { valid: undefined, request: {} }
-	const apiURL = 'http://localhost:4000/nftorder';
+	const apiURL = 'http://localhost:4000';
 	let wallet = { signer: {}, address: '', chainID: 0 }
 	let approved = false;
 	let update = 0;
@@ -45,6 +46,7 @@
 			wallet.chainID = await wallet.signer.getChainId();
 			fetchBalances();
 			checkApprovals();
+			checkAPIStatus();
 		}
 	}
 
@@ -75,6 +77,17 @@
 			}
 		} catch {
 			console.error('Something went wrong while checking NFT approvals.');
+		}
+	}
+
+	// Function to check API status:
+	const checkAPIStatus = async () => {
+		try {
+			let res = await axios.get(apiURL + '/healthcheck');
+			let status = res.data.status;
+			apiStatus = status == 'healthy' ? true : false;
+		} catch {
+			apiStatus = false;
 		}
 	}
 
@@ -132,7 +145,7 @@
 		formSubmission.valid = undefined;
 		formSubmission.request = {
 			method: 'post',
-			url: apiURL,
+			url: apiURL + '/nftorder',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded'
 			},
@@ -173,7 +186,7 @@
 
 <!-- #################################################################################################### -->
 
-{#if unclaimedNFTs > 0}
+{#if unclaimedNFTs > 0 && apiStatus}
 	<div id="buttons">
 
 		<!-- Approval Button -->

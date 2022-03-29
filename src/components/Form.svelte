@@ -20,6 +20,7 @@
 		valid: false
 	}
 	export let unclaimedNFTs;
+	export let apiStatus;
 	let countries;
 	let highlightInput = '';
 
@@ -130,7 +131,7 @@
 
 <!-- #################################################################################################### -->
 
-{#if unclaimedNFTs > 0}
+{#if unclaimedNFTs > 0 && apiStatus}
 	<div id="form">
 
 		<!-- Name -->
@@ -176,6 +177,8 @@
 		<input type="text" bind:value={formData.floor} placeholder="floor/staircase" class:warn="{highlightInput == 'floor'}">
 		<input type="text" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
 	</div>
+{:else if !apiStatus}
+	<p>Our servers are having some issues. Please check back in a little while to claim your NFTs.</p>
 {/if}
 
 <!-- #################################################################################################### -->

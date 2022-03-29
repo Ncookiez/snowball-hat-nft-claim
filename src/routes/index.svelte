@@ -11,6 +11,7 @@
 	let formData;
 	let unclaimedNFTs;
 	let formSubmission;
+	let apiStatus;
 
 </script>
 
@@ -80,10 +81,10 @@
 			{/if}
 		
 			<!-- User Info Form -->
-			<Form bind:formData {unclaimedNFTs} />
+			<Form bind:formData {apiStatus} {unclaimedNFTs} />
 		
 			<!-- Contract Interaction -->
-			<Contract bind:unclaimedNFTs bind:formSubmission {connected} {formData} />
+			<Contract bind:unclaimedNFTs bind:apiStatus bind:formSubmission {connected} {formData} />
 
 		</div>
 	{/if}
