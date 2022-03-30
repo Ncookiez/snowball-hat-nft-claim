@@ -43,7 +43,7 @@
 		position: fixed;
 		height: 100vh;
 		width: 100vw;
-		backdrop-filter: brightness(.3) blur(3px);
+		backdrop-filter: brightness(.2) blur(4px);
 	}
 
 	#popup {

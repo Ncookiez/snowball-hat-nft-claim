@@ -134,48 +134,98 @@
 {#if unclaimedNFTs > 0 && apiStatus}
 	<div id="form">
 
-		<!-- Name -->
-		<input type="text" bind:value={formData.firstName} placeholder="first name" class:warn="{highlightInput == 'firstName'}">
-		<input type="text" bind:value={formData.lastName} placeholder="last name" class:warn="{highlightInput == 'lastName'}">
+		<!-- First Name -->
+		<span>
+			<label for="firstName">First Name:</label>
+			<input type="text" id="firstName" bind:value={formData.firstName} placeholder="first name" class:warn="{highlightInput == 'firstName'}">
+		</span>
+
+		<!-- Last Name -->
+		<span>
+			<label for="lastName">Last Name:</label>
+			<input type="text" id="lastName" bind:value={formData.lastName} placeholder="last name" class:warn="{highlightInput == 'lastName'}">
+		</span>
 
 		<!-- Email -->
-		<input type="email" bind:value={formData.email} placeholder="email" class:warn="{highlightInput == 'email'}">
+		<span>
+			<label for="email">Email:</label>
+			<input type="email" id="email" bind:value={formData.email} placeholder="email" class:warn="{highlightInput == 'email'}">
+		</span>
 
-		<!-- Phone Numbers -->
-		<input type="tel" bind:value={formData.phone} placeholder="phone number" class:warn="{highlightInput == 'phone'}">
-		<input type="landline" bind:value={formData.landline} placeholder="landline" class:warn="{highlightInput == 'landline'}">
+		<!-- Phone Number -->
+		<span>
+			<label for="phone">Phone Number:</label>
+			<input type="tel" id="phone" bind:value={formData.phone} placeholder="phone number" class:warn="{highlightInput == 'phone'}">
+		</span>
 
-		<!-- Location -->
-		<select bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
-			<option value="" disabled selected>country</option>
-			{#if countries}
-				{#each countries as country}
-					<option value={country}>{country.name}</option>
-				{/each}
-			{/if}
-		</select>
-		<select bind:value={formData.state} on:change={() => { formData.city = ''; }} class:warn="{highlightInput == 'state'}">
-			<option value="" disabled selected>state/province</option>
-			{#if formData.country}
-				{#each states as state}
-					<option value={state}>{state.name}</option>
-				{/each}
-			{/if}
-		</select>
-		<select bind:value={formData.city} class:warn="{highlightInput == 'city'}">
-			<option value="" disabled selected>city</option>
-			{#if formData.state}
-				{#each cities as city}
-					<option value={city}>{city.name}</option>
-				{/each}
-			{/if}
-		</select>
+		<!-- Landline Number -->
+		<span>
+			<label for="landline">Landline Number:</label>
+			<input type="tel" id="landline" bind:value={formData.landline} placeholder="landline number" class:warn="{highlightInput == 'landline'}">
+		</span>
 
-		<!-- Address -->
-		<input type="text" bind:value={formData.street} placeholder="street w/ number" class:warn="{highlightInput == 'street'}">
-		<input type="text" bind:value={formData.building} placeholder="building" class:warn="{highlightInput == 'building'}">
-		<input type="text" bind:value={formData.floor} placeholder="floor/staircase" class:warn="{highlightInput == 'floor'}">
-		<input type="text" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
+		<!-- Country -->
+		<span>
+			<label for="country">Country:</label>
+			<select id="country" bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
+				<option value="" disabled selected>country</option>
+				{#if countries}
+					{#each countries as country}
+						<option value={country}>{country.name}</option>
+					{/each}
+				{/if}
+			</select>
+		</span>
+
+		<!-- State/Province -->
+		<span>
+			<label for="state">State/Province:</label>
+			<select id="state" bind:value={formData.state} on:change={() => { formData.city = ''; }} class:warn="{highlightInput == 'state'}">
+				<option value="" disabled selected>state/province</option>
+				{#if formData.country}
+					{#each states as state}
+						<option value={state}>{state.name}</option>
+					{/each}
+				{/if}
+			</select>
+		</span>
+
+		<!-- City -->
+		<span>
+			<label for="city">City:</label>
+			<select id="city" bind:value={formData.city} class:warn="{highlightInput == 'city'}">
+				<option value="" disabled selected>city</option>
+				{#if formData.state}
+					{#each cities as city}
+						<option value={city}>{city.name}</option>
+					{/each}
+				{/if}
+			</select>
+		</span>
+
+		<!-- Street w/ Number -->
+		<span>
+			<label for="street">Street w/ Number:</label>
+			<input type="text" id="street" bind:value={formData.street} placeholder="street w/ number" class:warn="{highlightInput == 'street'}">
+		</span>
+
+		<!-- Building -->
+		<span>
+			<label for="building">Building:</label>
+			<input type="text" id="building" bind:value={formData.building} placeholder="building" class:warn="{highlightInput == 'building'}">
+		</span>
+
+		<!-- Floor/Staircase -->
+		<span>
+			<label for="floor">Floor/Staircase:</label>
+			<input type="text" id="floor" bind:value={formData.floor} placeholder="floor/staircase" class:warn="{highlightInput == 'floor'}">
+		</span>
+
+		<!-- Zip/Postal Code -->
+		<span>
+			<label for="zipCode">Zip/Postal Code:</label>
+			<input type="text" id="zipCode" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
+		</span>
 	</div>
 {:else if !apiStatus}
 	<p>Our servers are having some issues. Please check back in a little while to claim your NFTs.</p>
@@ -193,15 +243,31 @@
 		padding: 1em 0;
 	}
 
-	#form > input, #form > select {
+	#form > span {
+		display: flex;
+		justify-content: space-between;
 		width: 100%;
 		margin: .4em 0;
-		padding: .4em 0;
-		border: none;
 		border-radius: 1em;
-		color: black;
 		background-color: white;
+	}
+
+	#form > span > label {
+		min-width: 16ch;
+		padding: .4em 1em;
+		text-align: left;
+		color: black;
+		font-size: .8em;
+	}
+
+	#form > span > input, #form > span > select {
+		width: 100%;
+		padding: .4em 1em;
+		outline: none;
+		border: none;
 		text-align: center;
+		color: black;
+		background-color: transparent;
 		white-space: nowrap;
 	}
 
@@ -218,6 +284,10 @@
 		
 		#form {
 			width: 100%;
+		}
+
+		#form > span > label {
+			display: none;
 		}
 	}
 
