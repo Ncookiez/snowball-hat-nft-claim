@@ -14,6 +14,7 @@
 	let wallet = { signer: {}, address: '', chainID: 0 }
 	let approved = false;
 	let update = 0;
+	let requireAPICheck = true;
 
 	// NFT Addresses:
 	let unclaimedNFT = '0x9fF1918d212c435AD1F1734E9C4DC2DB835161Af';
@@ -82,12 +83,16 @@
 
 	// Function to check API status:
 	const checkAPIStatus = async () => {
-		try {
-			let res = await axios.get(apiURL + '/healthcheck');
-			let status = res.data.status;
-			apiStatus = status == 'healthy' ? true : false;
-		} catch {
-			apiStatus = false;
+		if(requireAPICheck) {
+			try {
+				let res = await axios.get(apiURL + '/healthcheck');
+				let status = res.data.status;
+				apiStatus = status == 'healthy' ? true : false;
+			} catch {
+				apiStatus = false;
+			}
+		} else {
+			apiStatus = true;
 		}
 	}
 
@@ -207,7 +212,6 @@
 	}
 
 	#approve, #claim {
-		display: flex;
 		margin: 1em;
 		padding: .6em 2em;
 		border: none;
