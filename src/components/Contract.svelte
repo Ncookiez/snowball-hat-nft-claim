@@ -10,7 +10,7 @@
 	export let connected;
 	export let formData;
 	export let formSubmission = { valid: undefined, request: {} }
-	const apiURL = 'http://localhost:4000'; // <TODO> Replace with actual API URL.
+	const apiURL = 'https://dev-apiv2.snowapi.net/';
 	let wallet = { signer: {}, address: '', chainID: 0 }
 	let approved = false;
 	let update = 0;
