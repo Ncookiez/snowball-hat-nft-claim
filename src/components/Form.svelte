@@ -135,39 +135,39 @@
 	<div id="form">
 
 		<!-- First Name -->
-		<span>
+		<span class:warn="{highlightInput == 'firstName'}">
 			<label for="firstName">First Name:</label>
-			<input type="text" id="firstName" bind:value={formData.firstName} placeholder="first name" class:warn="{highlightInput == 'firstName'}">
+			<input type="text" id="firstName" bind:value={formData.firstName} placeholder="first name">
 		</span>
 
 		<!-- Last Name -->
-		<span>
+		<span class:warn="{highlightInput == 'lastName'}">
 			<label for="lastName">Last Name:</label>
-			<input type="text" id="lastName" bind:value={formData.lastName} placeholder="last name" class:warn="{highlightInput == 'lastName'}">
+			<input type="text" id="lastName" bind:value={formData.lastName} placeholder="last name">
 		</span>
 
 		<!-- Email -->
-		<span>
+		<span class:warn="{highlightInput == 'email'}">
 			<label for="email">Email:</label>
-			<input type="email" id="email" bind:value={formData.email} placeholder="email" class:warn="{highlightInput == 'email'}">
+			<input type="email" id="email" bind:value={formData.email} placeholder="email">
 		</span>
 
 		<!-- Phone Number -->
-		<span>
+		<span class:warn="{highlightInput == 'phone'}">
 			<label for="phone">Phone Number:</label>
-			<input type="tel" id="phone" bind:value={formData.phone} placeholder="phone number" class:warn="{highlightInput == 'phone'}">
+			<input type="tel" id="phone" bind:value={formData.phone} placeholder="phone number">
 		</span>
 
 		<!-- Landline Number -->
-		<span>
+		<span class:warn="{highlightInput == 'landline'}">
 			<label for="landline">Landline Number:</label>
-			<input type="tel" id="landline" bind:value={formData.landline} placeholder="landline number" class:warn="{highlightInput == 'landline'}">
+			<input type="tel" id="landline" bind:value={formData.landline} placeholder="landline number">
 		</span>
 
 		<!-- Country -->
-		<span>
+		<span class:warn="{highlightInput == 'country'}">
 			<label for="country">Country:</label>
-			<select id="country" bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }} class:warn="{highlightInput == 'country'}">
+			<select id="country" bind:value={formData.country} on:change={() => { formData.state = ''; formData.city = ''; }}>
 				<option value="" disabled selected>country</option>
 				{#if countries}
 					{#each countries as country}
@@ -178,9 +178,9 @@
 		</span>
 
 		<!-- State/Province -->
-		<span>
+		<span class:warn="{highlightInput == 'state'}">
 			<label for="state">State/Province:</label>
-			<select id="state" bind:value={formData.state} on:change={() => { formData.city = ''; }} class:warn="{highlightInput == 'state'}">
+			<select id="state" bind:value={formData.state} on:change={() => { formData.city = ''; }}>
 				<option value="" disabled selected>state/province</option>
 				{#if formData.country}
 					{#each states as state}
@@ -191,9 +191,9 @@
 		</span>
 
 		<!-- City -->
-		<span>
+		<span class:warn="{highlightInput == 'city'}">
 			<label for="city">City:</label>
-			<select id="city" bind:value={formData.city} class:warn="{highlightInput == 'city'}">
+			<select id="city" bind:value={formData.city}>
 				<option value="" disabled selected>city</option>
 				{#if formData.state}
 					{#each cities as city}
@@ -204,27 +204,27 @@
 		</span>
 
 		<!-- Street w/ Number -->
-		<span>
+		<span class:warn="{highlightInput == 'street'}">
 			<label for="street">Street w/ Number:</label>
-			<input type="text" id="street" bind:value={formData.street} placeholder="street w/ number" class:warn="{highlightInput == 'street'}">
+			<input type="text" id="street" bind:value={formData.street} placeholder="street w/ number">
 		</span>
 
 		<!-- Building -->
-		<span>
+		<span class:warn="{highlightInput == 'building'}">
 			<label for="building">Building:</label>
-			<input type="text" id="building" bind:value={formData.building} placeholder="building" class:warn="{highlightInput == 'building'}">
+			<input type="text" id="building" bind:value={formData.building} placeholder="building">
 		</span>
 
 		<!-- Floor/Staircase -->
-		<span>
+		<span class:warn="{highlightInput == 'floor'}">
 			<label for="floor">Floor/Staircase:</label>
-			<input type="text" id="floor" bind:value={formData.floor} placeholder="floor/staircase" class:warn="{highlightInput == 'floor'}">
+			<input type="text" id="floor" bind:value={formData.floor} placeholder="floor/staircase">
 		</span>
 
 		<!-- Zip/Postal Code -->
-		<span>
+		<span class:warn="{highlightInput == 'zipCode'}">
 			<label for="zipCode">Zip/Postal Code:</label>
-			<input type="text" id="zipCode" bind:value={formData.zipCode} placeholder="zip/postal Code" class:warn="{highlightInput == 'zipCode'}">
+			<input type="text" id="zipCode" bind:value={formData.zipCode} placeholder="zip/postal Code">
 		</span>
 	</div>
 {:else if !apiStatus}
