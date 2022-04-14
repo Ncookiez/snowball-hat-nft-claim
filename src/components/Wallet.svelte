@@ -70,7 +70,7 @@
 		}
 	}
 
-	// Function to handle network changes:
+	// Function to handle account changes:
 	const handleAccountChange = async (accounts) => {
 		connected = false;
 		if(accounts.length > 0) {
