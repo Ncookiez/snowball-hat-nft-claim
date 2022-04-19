@@ -101,7 +101,7 @@
 		if(formData.country !== '') {
 			let foundCountry = countries.find(i => i.id === formData.country.id);
 			if(foundCountry) {
-				return foundCountry.states;
+				return foundCountry.states.filter(i => i.cities.length > 0);
 			} else {
 				return [];
 			}
